@@ -1,0 +1,1 @@
+export { JavaExtractorService } from './java-extractor.service';

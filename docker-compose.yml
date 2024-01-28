@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .docker/local
+      dockerfile: Dockerfile
+    ports:
+      - '49001:3000'
+    env_file: .docker/local/.env-back
+    volumes:
+      - .:/api
+      - /home/app/storage/devops-dash-view:/storage
+
+  db:
+    image: postgres:16
+    env_file: .docker/local/.env-db
+    ports:
+      - '49002:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./init_db:/init_db
+
+  site:
+    extends:
+      file: ../devops-dash-view-site/docker-compose.yml
+      service: site
+
+volumes:
+  db:

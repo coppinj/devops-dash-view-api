@@ -1,0 +1,4 @@
+[submodule "src/dash-view-common"]
+	path = src/dash-view-common
+	url = https://github.com/coppinj/devops-dash-view-common.git
+	branch = dev

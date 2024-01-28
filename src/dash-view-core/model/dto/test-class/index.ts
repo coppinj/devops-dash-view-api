@@ -1,0 +1,1 @@
+export { TestClassUploadDTO } from './test-class-upload.dto';
