@@ -1,5 +1,5 @@
-import { AbstractExtractorService, TestClass } from '@dash-view-core';
 import { Injectable } from '@nestjs/common';
+import { AbstractExtractorService, TestClass } from '../../model';
 import { ExtractorService } from '../extractor.service';
 
 @Injectable()

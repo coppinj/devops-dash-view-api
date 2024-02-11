@@ -1,12 +1,12 @@
 import { ISeedDTO } from '@dash-view-common';
 import { Repository } from 'typeorm';
 import { AbstractEntity } from '../../model';
-import { AbstractService } from '../abstract.service';
+import { AbstractCRUDService } from '../common';
 
 export abstract class AbstractSeedService<TEntity extends AbstractEntity<TEntity>> {
   protected constructor(
     protected readonly repo: Repository<TEntity>,
-    protected readonly service?: AbstractService<TEntity>,
+    protected readonly service?: AbstractCRUDService<TEntity>,
   ) {
   }
 
@@ -43,7 +43,7 @@ export abstract class AbstractSeedService<TEntity extends AbstractEntity<TEntity
   protected getCode(): string {
     let name = this.constructor.name
       .replace('SeedService', '')
-      .replaceAll(/([a-z])([A-Z])/g, (_, a: string, b: string) => `${ a }-${ b.toLowerCase() }`);
+      .replaceAll(/([a-z])([A-Z])/g, (_, a: string, b: string) => `${a}-${b.toLowerCase()}`);
 
     if (name.endsWith('e')) {
       name += 's';

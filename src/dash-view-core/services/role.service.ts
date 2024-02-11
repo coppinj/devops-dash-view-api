@@ -2,11 +2,11 @@ import { IRoleDTO, RoleType } from '@dash-view-common';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CommonDTO, Role, RoleDTO } from '../model';
-import { AbstractService } from './abstract.service';
+import { Role, RoleDTO } from '../model';
+import { AbstractCRUDService } from './common';
 
 @Injectable()
-export class RoleService extends AbstractService<Role> {
+export class RoleService extends AbstractCRUDService<Role> {
   constructor(
     @InjectRepository(Role)
       repo: Repository<Role>,

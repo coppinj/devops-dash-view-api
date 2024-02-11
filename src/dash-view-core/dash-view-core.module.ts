@@ -3,11 +3,24 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtAuthGuard } from './guards';
-import { Repository, RepositoryApiKey, Role, Translation, User, UserRepositoryAccess } from './model';
+import {
+  Pipeline,
+  Repository,
+  RepositoryApiKey,
+  RepositoryUserAccess,
+  Role,
+  TestClass,
+  TestMethod,
+  Translation,
+  User,
+} from './model';
 import {
   AuthService,
   ExtractorService,
-  JavaExtractorService, RepositoryService,
+  JavaExtractorService,
+  RepositoryApiKeyService,
+  RepositoryService,
+  RepositoryUserAccessService,
   RoleSeedService,
   RoleService,
   SeedService,
@@ -20,12 +33,15 @@ import { JwtStrategy } from './strategies';
 @Module({
   imports: [
     TypeOrmModule.forFeature([
+      Pipeline,
       Repository,
       RepositoryApiKey,
       Role,
+      TestClass,
+      TestMethod,
       Translation,
       User,
-      UserRepositoryAccess,
+      RepositoryUserAccess,
     ]),
     PassportModule,
     JwtModule.register({
@@ -35,20 +51,24 @@ import { JwtStrategy } from './strategies';
   ],
   exports: [
     AuthService,
-    RepositoryService,
-    RoleService,
-    TranslationService,
-    SeedService,
-    UserService,
     ExtractorService,
+    RepositoryService,
+    RepositoryApiKeyService,
+    RepositoryUserAccessService,
+    RoleService,
+    SeedService,
+    TranslationService,
+    UserService,
   ],
   providers: [
     JwtStrategy,
     JwtAuthGuard,
 
     AuthService,
-    RepositoryService,
     RoleService,
+    RepositoryService,
+    RepositoryApiKeyService,
+    RepositoryUserAccessService,
     TranslationService,
     UserService,
     // Seed

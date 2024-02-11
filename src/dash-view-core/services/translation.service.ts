@@ -2,10 +2,10 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EntityManager, Repository } from 'typeorm';
 import { Translation, TranslationCreateDTO, TranslationUpdateDTO } from '../model';
-import { AbstractService } from './abstract.service';
+import { AbstractCRUDService } from './common';
 
 @Injectable()
-export class TranslationService extends AbstractService<Translation> {
+export class TranslationService extends AbstractCRUDService<Translation> {
   constructor(
     @InjectRepository(Translation)
       repo: Repository<Translation>,

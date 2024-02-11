@@ -5,11 +5,11 @@ import * as bcrypt from 'bcryptjs';
 import * as crypto from 'crypto';
 import { EntityManager, Repository } from 'typeorm';
 import { Role, User } from '../model';
-import { AbstractService } from './abstract.service';
+import { AbstractCRUDService } from './common';
 import { RoleService } from './role.service';
 
 @Injectable()
-export class UserService extends AbstractService<User> {
+export class UserService extends AbstractCRUDService<User> {
   constructor(
     @InjectRepository(User)
       repo: Repository<User>,

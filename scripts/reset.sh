@@ -3,7 +3,7 @@
 docker exec devops-dash-view-db-1 psql -U dash-view -d dash-view -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
 
 find ../migration -type f -name '[0-9]*-*.ts' -delete
-find ../dist/migration -type f -name '[0-9]*-*.ts' -delete
+find ../dist/migration -type f -name '*' -delete
 
 ./generate_migration.sh
 

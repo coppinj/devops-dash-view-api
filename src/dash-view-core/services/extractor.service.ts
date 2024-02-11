@@ -1,5 +1,5 @@
-import { AbstractExtractorService } from '@dash-view-core';
 import { Logger } from '@nestjs/common';
+import { AbstractExtractorService } from '../model';
 
 export class ExtractorService {
   private _logger: Logger;

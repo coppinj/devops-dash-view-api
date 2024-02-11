@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository as RepositoryTypeORM } from 'typeorm';
-import { Repository } from '../model';
-import { RepositoryCreateDTO, RepositoryReadDTO, RepositoryUpdateDTO } from '../model/dto/repository';
-import { AbstractService } from './abstract.service';
+import { Repository, RepositoryCreateDTO, RepositoryReadDTO, RepositoryUpdateDTO } from '../model';
+import { AbstractCRUDService } from './common';
 
 @Injectable()
-export class RepositoryService extends AbstractService<Repository,
+export class RepositoryService extends AbstractCRUDService<Repository,
   RepositoryReadDTO,
   any,
   RepositoryCreateDTO,
@@ -16,5 +15,9 @@ export class RepositoryService extends AbstractService<Repository,
       repo: RepositoryTypeORM<Repository>,
   ) {
     super(repo);
+  }
+
+  protected async _getReadDTO(entity: Repository): Promise<RepositoryReadDTO> {
+    return new RepositoryReadDTO(entity);
   }
 }
