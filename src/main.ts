@@ -75,6 +75,7 @@ async function bootstrap(): Promise<void> {
     .setTitle('Pipeline API')
     .setDescription('The Swagger for the pipeline')
     .setVersion('1.0')
+    .addApiKey({ type: 'apiKey', name: 'api-key', in: 'header' }, 'Api-Key')
     .build();
 
   const pipelineModuleDocument = SwaggerModule.createDocument(app, pipelineOptions, {

@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { JwtAuthGuard } from './guards';
+import { JwtAuthGuard, PipelineApiKeyGuard } from './guards';
 import {
   Pipeline,
   Repository,
@@ -18,12 +18,14 @@ import {
   AuthService,
   ExtractorService,
   JavaExtractorService,
+  PipelineService,
   RepositoryApiKeyService,
   RepositoryService,
   RepositoryUserAccessService,
   RoleSeedService,
   RoleService,
   SeedService,
+  TestClassService,
   TranslationService,
   UserSeedService,
   UserService,
@@ -52,23 +54,28 @@ import { JwtStrategy } from './strategies';
   exports: [
     AuthService,
     ExtractorService,
+    PipelineService,
     RepositoryService,
     RepositoryApiKeyService,
     RepositoryUserAccessService,
     RoleService,
     SeedService,
+    TestClassService,
     TranslationService,
     UserService,
   ],
   providers: [
     JwtStrategy,
     JwtAuthGuard,
+    PipelineApiKeyGuard,
 
     AuthService,
+    PipelineService,
     RoleService,
     RepositoryService,
     RepositoryApiKeyService,
     RepositoryUserAccessService,
+    TestClassService,
     TranslationService,
     UserService,
     // Seed

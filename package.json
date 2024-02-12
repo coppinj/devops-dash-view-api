@@ -40,6 +40,7 @@
     "file-type": "16.5.4",
     "java-parser": "^2.2.0",
     "jsonpath": "^1.1.1",
+    "jszip": "^3.10.1",
     "luxon": "^3.2.1",
     "mime-types": "2.1.35",
     "nanoid": "3.3.4",

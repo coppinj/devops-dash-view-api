@@ -1,16 +1,18 @@
-import { PipelineApiKeyGuard, PipelineCreateDTO, PipelineResponseDTO } from '@dash-view-core';
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import { PipelineApiKeyGuard, PipelineResponseDTO, PipelineService } from '@dash-view-core';
+import { Controller, Post, Req, UseGuards } from '@nestjs/common';
+import { ApiSecurity } from '@nestjs/swagger';
 
 @Controller({ path: 'pipelines', version: '1' })
 @UseGuards(PipelineApiKeyGuard)
+@ApiSecurity('Api-Key')
 export class PipelineController {
-  constructor() {
+  constructor(
+    private readonly pipelineService: PipelineService,
+  ) {
   }
 
   @Post()
-  async create(@Req() req: any, @Body() dto: PipelineCreateDTO): Promise<PipelineResponseDTO> {
-    console.log(req);
-
-    return null;
+  async create(@Req() req: any): Promise<PipelineResponseDTO> {
+    return this.pipelineService.createFromPipeline(req.repository);
   }
 }

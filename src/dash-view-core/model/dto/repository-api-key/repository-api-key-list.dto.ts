@@ -3,5 +3,5 @@ import { ListDTO } from '../common';
 
 export class RepositoryApiKeyListDTO extends ListDTO implements IRepositoryApiKeyListDTO {
   expirationDate: Date;
-  lastAccessDate: Date;
+  lastAccessedDate: Date;
 }

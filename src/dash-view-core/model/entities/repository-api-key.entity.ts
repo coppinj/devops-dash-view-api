@@ -10,10 +10,10 @@ export class RepositoryApiKey extends AbstractEntity<RepositoryApiKey> {
     apiKey: string;
 
   @DateTimeColumn('expiration_date', true)
-    expirationDate: Date;
+    expirationDate: Date | null;
 
-  @DateTimeColumn('last_access_date', true)
-    lastAccessDate: Date;
+  @DateTimeColumn('last_accessed_date', true)
+    lastAccessedDate: Date | null;
 
   @ManyToOne(() => RepositoryApiKey, () => Repository, 'repository_id', 'repositoryID', false)
     repository: Repository;

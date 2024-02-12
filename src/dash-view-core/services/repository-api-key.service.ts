@@ -2,7 +2,7 @@ import { IEntityDTO } from '@dash-view-common';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DateTime } from 'luxon';
-import { EntityManager, LessThan, Repository as RepositoryTypeORM } from 'typeorm';
+import { EntityManager, IsNull, LessThan, Repository as RepositoryTypeORM } from 'typeorm';
 import {
   Repository,
   RepositoryApiKey,
@@ -37,21 +37,21 @@ export class RepositoryApiKeyService extends AbstractCRUDService<RepositoryApiKe
   }
 
   async getRepositoryByApiKey(apiKey: string): Promise<Repository | null> {
-    const repositoryApiKey = await this.repo.findOne({
-      relations: {
-        repository: true,
-      },
-      where: {
-        apiKey,
-        expirationDate: LessThan(DateTime.local().toJSDate()),
-      },
-    });
+    if (!/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(apiKey)) {
+      return null;
+    }
+
+    const repositoryApiKey = await this.repo.createQueryBuilder('rak')
+      .innerJoinAndSelect('rak.repository', 'r')
+      .where('rak.apiKey = :apiKey', { apiKey })
+      .andWhere('rak.expirationDate IS NULL OR rak.expirationDate > :now', { now: DateTime.local().toJSDate() })
+      .getOne();
 
     if (!repositoryApiKey) {
       return null;
     }
 
-    repositoryApiKey.lastAccessDate = DateTime.local().toJSDate();
+    repositoryApiKey.lastAccessedDate = DateTime.local().toJSDate();
 
     await this.repo.save(repositoryApiKey);
 
@@ -63,6 +63,11 @@ export class RepositoryApiKeyService extends AbstractCRUDService<RepositoryApiKe
   }
 
   protected async _getListDTO(entity: RepositoryApiKey): Promise<RepositoryApiKeyListDTO> {
-    return new RepositoryApiKeyListDTO(entity);
+    const dto = new RepositoryApiKeyListDTO();
+
+    dto.expirationDate = entity.expirationDate;
+    dto.lastAccessedDate = entity.lastAccessedDate;
+
+    return dto;
   }
 }

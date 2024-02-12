@@ -6,5 +6,5 @@ export class TestClassUploadDTO {
   @IsNotEmpty()
   @IsZipFile()
   @ApiProperty({ type: 'string', format: 'binary' })
-    files: Buffer;
+    files: Buffer[];
 }
