@@ -52,6 +52,8 @@
     "rxjs": "^7.2.0",
     "sharp": "^0.32.6",
     "stripe": "^13.3.0",
+    "tree-sitter": "^0.20.6",
+    "tree-sitter-java": "^0.20.2",
     "typeorm": "^0.3.11"
   },
   "devDependencies": {

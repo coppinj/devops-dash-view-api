@@ -4,6 +4,7 @@ import JSZip from 'jszip';
 import { Repository as RepositoryTypeORM } from 'typeorm';
 import { Repository, TestClass, TestClassUploadDTO } from '../model';
 import { AbstractService } from './common';
+import { ExtractorService } from './extractor.service';
 import { PipelineService } from './pipeline.service';
 
 @Injectable()
@@ -12,6 +13,7 @@ export class TestClassService extends AbstractService<TestClass> {
     @InjectRepository(TestClass)
       repo: RepositoryTypeORM<TestClass>,
     private readonly pipelineService: PipelineService,
+    private readonly extractorService: ExtractorService,
   ) {
     super(repo);
   }
@@ -31,14 +33,9 @@ export class TestClassService extends AbstractService<TestClass> {
     const content = await zip.loadAsync(dto.files[0].buffer);
 
     content.forEach((relativePath, file) => {
-      console.log(`Found file: ${relativePath}`);
-
-      // Check if it's a file and not a folder
       if (!file.dir) {
-        // Extract file content as an example
-        file.async('string').then((fileContent) => {
-          // console.log(`Content of ${relativePath}:`, fileContent);
-          // Perform your processing here
+        file.async('string').then(async (fileContent) => {
+          await this.extractorService.parse(pipeline, relativePath, fileContent);
         });
       }
     });

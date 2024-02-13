@@ -1,5 +1,5 @@
 import { Logger } from '@nestjs/common';
-import { AbstractExtractorService } from '../model';
+import { AbstractExtractorService, Pipeline, TestClass } from '../model';
 
 export class ExtractorService {
   private _logger: Logger;
@@ -19,5 +19,19 @@ export class ExtractorService {
 
       this._extractorsMap.set(type, extractor);
     }
+  }
+
+  parse(pipeline: Pipeline, filename: string, content: string): Promise<TestClass> {
+    if (filename.indexOf('.') === -1) {
+      return null;
+    }
+
+    const extension = filename.split('.').pop();
+
+    if (!this._extractorsMap.has(extension)) {
+      return null;
+    }
+
+    return this._extractorsMap.get(extension)!.parse(pipeline, content);
   }
 }

@@ -6,6 +6,7 @@ export { RepositoryApiKeyService } from './repository-api-key.service';
 export { RepositoryUserAccessService } from './repository-user-access.service';
 export { RoleService } from './role.service';
 export { TestClassService } from './test-class.service';
+export { TestMethodService } from './test-method.service';
 export { TranslationService } from './translation.service';
 export { UserService } from './user.service';
 
