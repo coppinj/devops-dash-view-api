@@ -7,6 +7,6 @@ export function EnumColumn(name: string, possibleValues: (string | number)[] | O
     name,
     nullable,
     enum: possibleValues,
-    ... extendedOptions,
+    ...extendedOptions,
   });
 }

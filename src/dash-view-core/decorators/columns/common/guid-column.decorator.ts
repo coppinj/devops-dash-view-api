@@ -6,6 +6,6 @@ export function GuidColumn(name: string, nullable: boolean = false, extendedOpti
     type: 'uuid',
     name,
     nullable,
-    ... extendedOptions,
+    ...extendedOptions,
   });
 }

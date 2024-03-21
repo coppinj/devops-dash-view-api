@@ -6,8 +6,8 @@ export abstract class ReadDTO implements IReadDTO {
   constructor(entity?: Partial<ReadDTO>) {
     if (entity) {
       Object.assign(this, entity);
-    }
 
-    this.id = entity.id;
+      this.id = entity.id;
+    }
   }
 }

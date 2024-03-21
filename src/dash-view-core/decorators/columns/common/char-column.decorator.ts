@@ -7,6 +7,6 @@ export function CharColumn(name: string, length: number, nullable: boolean = tru
     name,
     nullable,
     length,
-    ... extendedOptions,
+    ...extendedOptions,
   });
 }

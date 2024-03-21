@@ -6,6 +6,6 @@ export function DateColumn(name: string, nullable: boolean = true, extendedOptio
     type: 'date',
     name,
     nullable,
-    ... extendedOptions,
+    ...extendedOptions,
   });
 }

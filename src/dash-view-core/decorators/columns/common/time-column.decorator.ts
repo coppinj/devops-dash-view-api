@@ -6,6 +6,6 @@ export function TimeColumn(name: string, nullable: boolean = true, extendedOptio
     type: 'time',
     name,
     nullable,
-    ... extendedOptions,
+    ...extendedOptions,
   });
 }

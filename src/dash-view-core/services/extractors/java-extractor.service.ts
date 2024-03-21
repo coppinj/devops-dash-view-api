@@ -1,24 +1,37 @@
-import { Injectable, NotImplementedException, ServiceUnavailableException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import Parser from 'tree-sitter';
 import Java from 'tree-sitter-java';
 import { AbstractExtractorService, TestClass, TestMethod } from '../../model';
 import { ExtractorService } from '../extractor.service';
+import { TestClassService } from '../test-class.service';
 import { TestMethodService } from '../test-method.service';
 
 @Injectable()
 export class JavaExtractorService extends AbstractExtractorService {
   constructor(
     extractor: ExtractorService,
+    private readonly testClassService: TestClassService,
     private readonly testMethodService: TestMethodService,
   ) {
     super(extractor, 'java');
   }
 
   protected async _parse(testClass: TestClass): Promise<TestClass> {
+    let className: string | null = null;
     let javaMethods: IMethodDeclaration[] | null = null;
 
     try {
       const tree = this._parser.parse(testClass.sourceCode);
+
+      className = this.extractClassName(tree.rootNode);
+
+      if (className === null) {
+        return null;
+      }
+
+      testClass.name = className;
+
+      await this.testClassService.getRepository().save(testClass);
 
       javaMethods = this.extractMethods(tree.rootNode, testClass.sourceCode);
     }
@@ -50,6 +63,26 @@ export class JavaExtractorService extends AbstractExtractorService {
 
   protected _setLanguage(): void {
     this._parser.setLanguage(Java);
+  }
+
+  private extractClassName(node: Parser.SyntaxNode, classNames: string[] = []): string {
+    if (node.type === 'class_declaration') {
+      const classNameNode = node.children.find((n: any) => n.type === 'identifier');
+
+      if (classNameNode) {
+        classNames.push(classNameNode.text);
+      }
+    }
+
+    for (const child of node.children) {
+      this.extractClassName(child, classNames);
+    }
+
+    if (classNames.length > 1) {
+      return null;
+    }
+
+    return classNames.pop();
   }
 
   private extractMethods(node: Parser.SyntaxNode, sourceCode: string): IMethodDeclaration[] {

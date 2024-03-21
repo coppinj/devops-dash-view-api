@@ -1,7 +1,6 @@
+import Parser from 'tree-sitter';
 import { ExtractorService } from '../../services';
 import { Pipeline, TestClass } from '../entities';
-
-import Parser from 'tree-sitter';
 
 export abstract class AbstractExtractorService {
   protected _parser: Parser;
@@ -16,17 +15,17 @@ export abstract class AbstractExtractorService {
     this._setLanguage();
   }
 
-  protected abstract _setLanguage(): void;
-  protected abstract _parse(testClass: TestClass): Promise<TestClass>;
-
   parse(pipeline: Pipeline, sourceCode: string): Promise<TestClass> {
     const testClass = new TestClass();
 
     testClass.pipeline = pipeline;
-    testClass.scaffolding = false;
     testClass.sourceCode = sourceCode;
     testClass.validated = false;
 
     return this._parse(testClass);
   }
+
+  protected abstract _setLanguage(): void;
+
+  protected abstract _parse(testClass: TestClass): Promise<TestClass>;
 }

@@ -6,6 +6,6 @@ export function IntColumn(name: string, nullable: boolean = true, extendedOption
     type: 'integer',
     name,
     nullable,
-    ... extendedOptions,
+    ...extendedOptions,
   });
 }

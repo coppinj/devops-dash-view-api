@@ -13,7 +13,7 @@ export class TestMethod extends AbstractEntity<TestMethod> {
   @BooleanColumn('validated', false)
     validated: boolean;
 
-  @ManyToOne(() => TestMethod, () => TestClass, 'test_class_id', 'testClassID', false)
+  @ManyToOne(() => TestMethod, () => TestClass, 'test_class_id', 'testClassID', false, x => x.testMethods)
     testClass: TestClass;
   testClassID: number;
 }

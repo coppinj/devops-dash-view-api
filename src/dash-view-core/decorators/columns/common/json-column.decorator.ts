@@ -6,6 +6,6 @@ export function JsonColumn(name: string, nullable: boolean = true, extendedOptio
     type: 'json',
     name,
     nullable,
-    ... extendedOptions,
+    ...extendedOptions,
   });
 }

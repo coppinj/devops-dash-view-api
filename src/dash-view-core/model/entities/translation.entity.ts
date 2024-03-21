@@ -4,8 +4,8 @@ import { AbstractEntity } from './abstract.entity';
 @EntityWithSchema('public.translations')
 export class Translation extends AbstractEntity<Translation> {
   @TextColumn('fr', true)
-    fr: string;
+  fr: string;
 
   @TextColumn('en', true)
-    en: string;
+  en: string;
 }

@@ -8,6 +8,6 @@ export function BooleanColumn(name: string, nullable: boolean = false, defaultVa
     name,
     nullable,
     default: isUndefinedOrNull(defaultValue) ? undefined : defaultValue,
-    ... extendedOptions,
+    ...extendedOptions,
   });
 }

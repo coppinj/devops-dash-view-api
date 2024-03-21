@@ -5,16 +5,16 @@ import { Role } from './role.entity';
 @EntityWithSchema('public.users')
 export class User extends AbstractEntity<User> {
   @EmailColumn('email', false, true)
-    email: string;
+  email: string;
 
   @VarcharColumn('password', false)
-    password: string;
+  password: string;
   plainPassword?: string;
 
   @BooleanColumn('active', false, true)
-    active: boolean;
+  active: boolean;
 
   @ManyToOne(() => User, () => Role, 'role_id', 'roleID', false)
-    role: Role;
+  role: Role;
   roleID: number;
 }

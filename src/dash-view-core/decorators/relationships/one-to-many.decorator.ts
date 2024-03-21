@@ -10,6 +10,6 @@ export function OneToMany<T>(
   return OneToManyTypeOrm(typeFunction, inverseSide, {
     cascade,
     eager,
-    ... extendedOptions,
+    ...extendedOptions,
   });
 }

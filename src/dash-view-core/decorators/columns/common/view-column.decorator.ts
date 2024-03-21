@@ -4,6 +4,6 @@ import { ViewColumnOptions } from 'typeorm/decorator/options/ViewColumnOptions';
 export function ViewColumn(name: string, extendedOptions?: ViewColumnOptions): PropertyDecorator {
   return ViewColumnTypeORM({
     name,
-    ... extendedOptions,
+    ...extendedOptions,
   });
 }

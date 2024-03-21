@@ -6,6 +6,6 @@ export function DateTimeColumn(name: string, nullable: boolean = true, extendedO
     type: 'timestamp',
     name,
     nullable,
-    ... extendedOptions,
+    ...extendedOptions,
   });
 }

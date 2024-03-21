@@ -6,12 +6,12 @@ export function ManyToMany<T>(
   withJoinTable: boolean,
   typeFunction: () => ObjectType<T>,
   inverseSide?: (object: T) => any,
-  cascade: boolean | ('insert' | 'update' | 'remove' | 'soft-remove' | 'recover')[] = [ 'insert', 'update' ],
+  cascade: boolean | ('insert' | 'update' | 'remove' | 'soft-remove' | 'recover')[] = ['insert', 'update'],
   extendedOptions?: RelationOptions): PropertyDecorator {
   const joinTableFunc = JoinTable();
   const manyToManyFunc = ManyToManyTypeOrm(typeFunction, inverseSide, {
     cascade,
-    ... extendedOptions,
+    ...extendedOptions,
   });
 
   if (withJoinTable) {

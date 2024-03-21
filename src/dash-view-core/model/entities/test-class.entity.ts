@@ -1,11 +1,12 @@
-import { BooleanColumn, EntityWithSchema, ManyToOne, TextColumn } from '../../decorators';
+import { BooleanColumn, EntityWithSchema, ManyToOne, OneToMany, TextColumn, VarcharColumn } from '../../decorators';
 import { AbstractEntity } from './abstract.entity';
 import { Pipeline } from './pipeline.entity';
+import { TestMethod } from './test-method.entity';
 
 @EntityWithSchema('public.test_classes')
 export class TestClass extends AbstractEntity<TestClass> {
-  @BooleanColumn('scaffolding', false)
-    scaffolding: boolean;
+  @VarcharColumn('name', true)
+    name: string;
 
   @TextColumn('source_code', false)
     sourceCode: string;
@@ -13,9 +14,8 @@ export class TestClass extends AbstractEntity<TestClass> {
   @BooleanColumn('validated', false)
     validated: boolean;
 
-  @ManyToOne(() => TestClass, () => TestClass, 'scaffolding_class_id', 'scaffoldingClassID', true)
-    scaffoldingClass: TestClass;
-  scaffoldingClassID: number;
+  @OneToMany(() => TestMethod, x => x.testClass)
+    testMethods: TestMethod[];
 
   @ManyToOne(() => TestClass, () => Pipeline, 'pipeline_id', 'pipelineID', false)
     pipeline: Pipeline;

@@ -14,16 +14,16 @@ export abstract class AbstractCRUDService<
   TUpdateDTO extends IUpdateDTO = any,
   TParent extends AbstractEntity<TParent> = any,
 > extends AbstractService<TEntity> {
+  protected constructor(repo: Repository<TEntity>) {
+    super(repo);
+  }
+
   get parentService(): AbstractService<TParent> {
     throw new NotImplementedException();
   }
 
   get parentProperty(): keyof TEntity {
     throw new NotImplementedException();
-  }
-
-  protected constructor(repo: Repository<TEntity>) {
-    super(repo);
   }
 
   async create(dto: TCreateDTO): Promise<IEntityDTO>;

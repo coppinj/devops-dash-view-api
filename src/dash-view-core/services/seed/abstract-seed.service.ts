@@ -10,8 +10,6 @@ export abstract class AbstractSeedService<TEntity extends AbstractEntity<TEntity
   ) {
   }
 
-  protected abstract getEntities(): Promise<TEntity[]>;
-
   async seed(): Promise<ISeedDTO> {
     const response: ISeedDTO = {
       code: this.getCode(),
@@ -35,6 +33,8 @@ export abstract class AbstractSeedService<TEntity extends AbstractEntity<TEntity
 
     return response;
   }
+
+  protected abstract getEntities(): Promise<TEntity[]>;
 
   protected async entityExists(_entity: TEntity): Promise<boolean> {
     return false;

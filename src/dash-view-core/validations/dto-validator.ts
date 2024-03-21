@@ -8,14 +8,14 @@ import { ValidationHelper } from './validation.helper';
 export class DTOValidator<TDTO> {
   private readonly errors: ValidationError[];
 
-  get length(): number {
-    return this.errors.length;
-  }
-
   constructor(
     private dto: TDTO,
   ) {
     this.errors = [];
+  }
+
+  get length(): number {
+    return this.errors.length;
   }
 
   getErrors(): ValidationError[] {

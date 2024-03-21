@@ -6,4 +6,5 @@ export * from './repository-api-key';
 export * from './repository-user-access';
 export * from './role';
 export * from './test-class';
+export * from './test-method';
 export * from './translation';

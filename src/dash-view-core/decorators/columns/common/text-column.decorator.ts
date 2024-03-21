@@ -6,6 +6,6 @@ export function TextColumn(name: string, nullable: boolean = true, extendedOptio
     type: 'text',
     name,
     nullable,
-    ... extendedOptions,
+    ...extendedOptions,
   });
 }

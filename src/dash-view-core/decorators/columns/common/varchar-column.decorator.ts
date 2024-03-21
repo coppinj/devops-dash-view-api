@@ -7,6 +7,6 @@ export function VarcharColumn(name: string, nullable: boolean = true, extendedOp
     name,
     nullable,
     length: extendedOptions?.length ?? 255,
-    ... extendedOptions,
+    ...extendedOptions,
   });
 }
