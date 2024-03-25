@@ -2,6 +2,7 @@ import { IEntityDTO } from '@dash-view-common';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository as RepositoryTypeORM } from 'typeorm';
+import { FindManyOptions } from 'typeorm/find-options/FindManyOptions';
 import {
   Pipeline,
   PipelineListDTO,
@@ -10,7 +11,6 @@ import {
   Repository,
   TestClass,
   TestClassReadDTO,
-  TestMethodReadDTO,
 } from '../model';
 import { AbstractCRUDService } from './common';
 import { RepositoryService } from './repository.service';
@@ -35,6 +35,14 @@ export class PipelineService extends AbstractCRUDService<Pipeline,
     private readonly testClassRepository: RepositoryTypeORM<TestClass>,
   ) {
     super(repo);
+  }
+
+  protected _getListQuery(): FindManyOptions<Pipeline> {
+    return {
+      order: {
+        id: 'ASC',
+      },
+    };
   }
 
   async createFromPipeline(repository: Repository): Promise<PipelineResponseDTO> {
@@ -107,9 +115,12 @@ export class PipelineService extends AbstractCRUDService<Pipeline,
       where: {
         pipelineID: entity.id,
       },
-      relations: {
-        testMethods: true,
+      order: {
+        id: 'ASC',
       },
+      // relations: {
+      //   testMethods: true,
+      // },
     });
 
     for (const testClass of testClasses) {
@@ -122,16 +133,16 @@ export class PipelineService extends AbstractCRUDService<Pipeline,
 
       item.methods = [];
 
-      for (const method of testClass.testMethods) {
-        const subItem = new TestMethodReadDTO();
-
-        subItem.id = method.id;
-        subItem.row = method.row;
-        subItem.rows = method.rows;
-        subItem.validated = method.validated;
-
-        item.methods.push(subItem);
-      }
+      // for (const method of testClass.testMethods) {
+      //   const subItem = new TestMethodReadDTO();
+      //
+      //   subItem.id = method.id;
+      //   subItem.row = method.row;
+      //   subItem.rows = method.rows;
+      //   subItem.validated = method.validated;
+      //
+      //   item.methods.push(subItem);
+      // }
 
       dto.testClasses.push(item);
     }

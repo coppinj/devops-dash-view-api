@@ -4,6 +4,7 @@ import { PipelineController } from './controllers/pipeline.controller';
 import { RepositoryApiKeyController } from './controllers/repository-api-key.controller';
 import { RepositoryUserAccessController } from './controllers/repository-user-access.controller';
 import { RepositoryController } from './controllers/repository.controller';
+import { TestClassController } from './controllers/test-class.controller';
 
 @Module({
   controllers: [
@@ -11,6 +12,7 @@ import { RepositoryController } from './controllers/repository.controller';
     RepositoryController,
     RepositoryApiKeyController,
     RepositoryUserAccessController,
+    TestClassController,
   ],
   imports: [
     DashViewCoreModule,

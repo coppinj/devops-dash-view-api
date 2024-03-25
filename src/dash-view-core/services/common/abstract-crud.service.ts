@@ -129,7 +129,7 @@ export abstract class AbstractCRUDService<
 
     await manager.save(entity ?? entityOrEm);
 
-    return entity.toIEntityDTO();
+    return ((entity ?? entityOrEm) as TEntity).toIEntityDTO();
   }
 
   async update(id: number, dto: TUpdateDTO): Promise<IEntityDTO>;

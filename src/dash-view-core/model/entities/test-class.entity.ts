@@ -8,6 +8,9 @@ export class TestClass extends AbstractEntity<TestClass> {
   @VarcharColumn('name', true)
     name: string;
 
+  @TextColumn('extension', false)
+    extension: string;
+
   @TextColumn('source_code', false)
     sourceCode: string;
 

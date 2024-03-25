@@ -8,12 +8,14 @@ import { TestMethodService } from '../test-method.service';
 
 @Injectable()
 export class JavaExtractorService extends AbstractExtractorService {
+  private static TYPE = 'java';
+
   constructor(
     extractor: ExtractorService,
     private readonly testClassService: TestClassService,
     private readonly testMethodService: TestMethodService,
   ) {
-    super(extractor, 'java');
+    super(extractor, JavaExtractorService.TYPE);
   }
 
   protected async _parse(testClass: TestClass): Promise<TestClass> {
@@ -25,11 +27,12 @@ export class JavaExtractorService extends AbstractExtractorService {
 
       className = this.extractClassName(tree.rootNode);
 
-      if (className === null) {
+      if (!className === null) {
         return null;
       }
 
       testClass.name = className;
+      testClass.extension = JavaExtractorService.TYPE;
 
       await this.testClassService.getRepository().save(testClass);
 
@@ -82,7 +85,7 @@ export class JavaExtractorService extends AbstractExtractorService {
       return null;
     }
 
-    return classNames.pop();
+    return classNames[0];
   }
 
   private extractMethods(node: Parser.SyntaxNode, sourceCode: string): IMethodDeclaration[] {

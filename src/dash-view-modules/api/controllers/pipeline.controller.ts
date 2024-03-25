@@ -7,7 +7,7 @@ import {
   PipelineReadDTO,
   PipelineService,
 } from '@dash-view-core';
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post } from '@nestjs/common';
 
 @Controller({ path: 'repositories/:parentID/pipelines' })
 export class PipelineController extends AbstractController<Pipeline,
