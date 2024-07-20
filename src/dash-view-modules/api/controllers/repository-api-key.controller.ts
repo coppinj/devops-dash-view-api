@@ -1,4 +1,4 @@
-import { IEntityDTO, IListDTO, IReadDTO } from '@dash-view-common';
+import { IEntityDTO, IListDTO, IReadDTO, RoleType } from '@dash-view-common';
 import {
   AbstractController,
   IntParam,
@@ -6,11 +6,14 @@ import {
   RepositoryApiKeyCreateDTO,
   RepositoryApiKeyListDTO,
   RepositoryApiKeyReadDTO,
-  RepositoryApiKeyService,
+  RepositoryApiKeyService, RolesGuard,
 } from '@dash-view-core';
-import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, UseGuards } from '@nestjs/common';
+import { Roles } from '../../../dash-view-core/decorators/role.decorator';
 
 @Controller({ path: 'repositories/:parentID/api-keys' })
+@UseGuards(RolesGuard)
+@Roles(RoleType.ADMIN, RoleType.DEVELOPER)
 export class RepositoryApiKeyController extends AbstractController<RepositoryApiKey,
   RepositoryApiKeyReadDTO,
   RepositoryApiKeyListDTO,

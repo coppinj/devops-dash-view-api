@@ -1,15 +1,19 @@
-import { IListDTO, IReadDTO } from '@dash-view-common';
+import { IListDTO, IReadDTO, RoleType } from '@dash-view-common';
 import {
   AbstractController,
   IntParam,
+  JwtAuthGuard,
   Pipeline,
   PipelineListDTO,
   PipelineReadDTO,
-  PipelineService,
+  PipelineService, RolesGuard,
 } from '@dash-view-core';
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Roles } from '../../../dash-view-core/decorators/role.decorator';
 
 @Controller({ path: 'repositories/:parentID/pipelines' })
+@UseGuards(RolesGuard)
+@Roles(RoleType.ADMIN, RoleType.DEVELOPER)
 export class PipelineController extends AbstractController<Pipeline,
   PipelineReadDTO,
   PipelineListDTO> {

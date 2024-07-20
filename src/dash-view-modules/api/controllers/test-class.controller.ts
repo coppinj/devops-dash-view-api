@@ -1,10 +1,13 @@
-import { IReadDTO } from '@dash-view-common';
-import { AbstractController, IntParam, TestClass, TestClassService } from '@dash-view-core';
-import { Controller, Get, Post, Res } from '@nestjs/common';
+import { IReadDTO, RoleType } from '@dash-view-common';
+import { AbstractController, IntParam, RolesGuard, TestClass, TestClassService } from '@dash-view-core';
+import { Controller, Get, Post, Res, UseGuards } from '@nestjs/common';
+import { Roles } from '../../../dash-view-core/decorators/role.decorator';
 
 const contentDisposition = require('content-disposition');
 
 @Controller({ path: 'repositories/:repositoryID/pipelines/:pipelineID/test-classes' })
+@UseGuards(RolesGuard)
+@Roles(RoleType.ADMIN, RoleType.DEVELOPER)
 export class TestClassController extends AbstractController<TestClass> {
   constructor(
     private readonly testClassService: TestClassService,

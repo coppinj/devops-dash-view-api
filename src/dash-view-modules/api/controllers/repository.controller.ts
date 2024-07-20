@@ -1,4 +1,4 @@
-import { IEntityDTO, IListDTO, IReadDTO } from '@dash-view-common';
+import { IEntityDTO, IListDTO, IReadDTO, RoleType } from '@dash-view-common';
 import {
   AbstractController,
   IntParam,
@@ -7,10 +7,14 @@ import {
   RepositoryReadDTO,
   RepositoryService,
   RepositoryUpdateDTO,
+  RolesGuard,
 } from '@dash-view-core';
-import { Body, Controller, Get, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, UseGuards } from '@nestjs/common';
+import { Roles } from '../../../dash-view-core/decorators/role.decorator';
 
 @Controller({ path: 'repositories' })
+@UseGuards(RolesGuard)
+@Roles(RoleType.ADMIN, RoleType.DEVELOPER)
 export class RepositoryController extends AbstractController<Repository,
   RepositoryReadDTO,
   any,

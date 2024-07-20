@@ -27,6 +27,8 @@ export class RolesGuard extends JwtAuthGuard {
   }
 
   handleRequest(err, user, info, context): any {
+    super.handleRequest(err, user, info, context);
+
     const maintenance = process.env.hasOwnProperty('MAINTENANCE') && process.env.MAINTENANCE === 'true';
 
     const isAnonymous = this.reflector.get<boolean>('isAnonymous', context.getHandler()) ?? false;
