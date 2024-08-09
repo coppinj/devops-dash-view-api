@@ -13,7 +13,7 @@ import { Roles } from '../../../dash-view-core/decorators/role.decorator';
 
 @Controller({ path: 'repositories/:parentID/accesses' })
 @UseGuards(RolesGuard)
-@Roles(RoleType.ADMIN, RoleType.DEVELOPER)
+@Roles(RoleType.ADMIN)
 export class RepositoryUserAccessController extends AbstractController<RepositoryUserAccess,
   RepositoryUserAccessReadDTO,
   RepositoryUserAccessListDTO,

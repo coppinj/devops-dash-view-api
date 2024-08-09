@@ -26,6 +26,11 @@ export class UserSeedService extends AbstractSeedService<User> {
         active: true,
         role: await this.roleService.getByRoleType(RoleType.ADMIN),
       }),
+      new User({
+        email: 'dev@yopmail.com',
+        active: true,
+        role: await this.roleService.getByRoleType(RoleType.DEVELOPER),
+      }),
     ];
 
     for (const user of users) {

@@ -1,6 +1,13 @@
 import { fastifyHelmet } from '@fastify/helmet';
 import fastifyMultipart from '@fastify/multipart';
-import { BadRequestException, ValidationError, ValidationPipe, VERSION_NEUTRAL, VersioningType } from '@nestjs/common';
+import {
+  BadRequestException,
+  Logger,
+  ValidationError,
+  ValidationPipe,
+  VERSION_NEUTRAL,
+  VersioningType,
+} from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -9,6 +16,10 @@ import { AppModule } from './app.module';
 import { PipelineModule } from './dash-view-modules/pipeline/pipeline.module';
 
 async function bootstrap(): Promise<void> {
+  const logger = new Logger('Bootstrap');
+
+  logger.log('Starting application...');
+
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter({
@@ -87,6 +98,8 @@ async function bootstrap(): Promise<void> {
   // endregion
 
   await app.listen(3000, '0.0.0.0');
+
+  logger.log('Application started on port 3000');
 }
 
 bootstrap();

@@ -13,7 +13,7 @@ import { Roles } from '../../../dash-view-core/decorators/role.decorator';
 
 @Controller({ path: 'repositories/:parentID/api-keys' })
 @UseGuards(RolesGuard)
-@Roles(RoleType.ADMIN, RoleType.DEVELOPER)
+@Roles(RoleType.ADMIN)
 export class RepositoryApiKeyController extends AbstractController<RepositoryApiKey,
   RepositoryApiKeyReadDTO,
   RepositoryApiKeyListDTO,
