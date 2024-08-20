@@ -14,16 +14,16 @@ export abstract class AbstractCRUDService<
   TUpdateDTO extends IUpdateDTO = any,
   TParent extends AbstractEntity<TParent> = any,
 > extends AbstractService<TEntity> {
-  protected constructor(repo: Repository<TEntity>) {
-    super(repo);
-  }
-
   get parentService(): AbstractService<TParent> {
     throw new NotImplementedException();
   }
 
   get parentProperty(): keyof TEntity {
     throw new NotImplementedException();
+  }
+  
+  protected constructor(repo: Repository<TEntity>) {
+    super(repo);
   }
 
   async create(dto: TCreateDTO): Promise<IEntityDTO>;
@@ -98,7 +98,21 @@ export abstract class AbstractCRUDService<
   async list(parentID: number): Promise<TListDTO[]>;
 
   async list(parentID?: number): Promise<TListDTO[]> {
-    const entities = await this.repo.find(this._getListQuery(parentID));
+    const query = this._getListQuery(parentID);
+
+    if (parentID) {
+      if (!query.where) {
+        query.where = {};
+      }
+
+      if (!query.where[this.parentProperty as any]) {
+        query.where[this.parentProperty as any] = {
+          id: parentID,
+        };
+      }
+    }
+
+    const entities = await this.repo.find(query);
 
     const items: TListDTO[] = [];
 

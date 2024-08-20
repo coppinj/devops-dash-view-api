@@ -4,8 +4,8 @@ import { AbstractEntity } from './abstract.entity';
 @EntityWithSchema('public.repositories')
 export class Repository extends AbstractEntity<Repository> {
   @VarcharColumn('name', false)
-  name: string;
+    name: string;
 
   @VarcharColumn('url', false)
-  url: string;
+    url: string;
 }

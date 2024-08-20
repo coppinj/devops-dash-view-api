@@ -4,9 +4,9 @@ import { IsDate, IsInt, IsNotEmpty, IsOptional } from 'class-validator';
 export class RepositoryUserAccessCreateDTO implements IRepositoryUserAccessCreateDTO {
   @IsOptional()
   @IsDate()
-  endDate: Date;
+    endDate: Date;
 
   @IsNotEmpty()
   @IsInt()
-  userID: number;
+    userID: number;
 }

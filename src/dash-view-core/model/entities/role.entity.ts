@@ -6,9 +6,9 @@ import { Translation } from './translation.entity';
 @EntityWithSchema('public.roles')
 export class Role extends AbstractEntity<Role> {
   @EnumColumn('role', RoleType, false, { unique: true })
-  role: RoleType;
+    role: RoleType;
 
   @ManyToOne(() => Role, () => Translation, 'label_id', 'labelID', false)
-  label: Translation;
+    label: Translation;
   labelID: number;
 }

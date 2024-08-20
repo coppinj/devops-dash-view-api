@@ -46,7 +46,9 @@ build/config\.gypi
 
 /dist
 
-dash-view-back-*.tar.gz
+devops-dash-view-back-*.tar.gz
 init_db/*
 .docker/**/.env-*
 !.docker/**/.env-*.template
+
+debug.*

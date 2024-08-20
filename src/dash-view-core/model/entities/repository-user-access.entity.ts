@@ -6,13 +6,13 @@ import { User } from './user.entity';
 @EntityWithSchema('public.repository_user_accesses')
 export class RepositoryUserAccess extends AbstractEntity<RepositoryUserAccess> {
   @DateTimeColumn('end_date', true)
-  endDate: Date;
+    endDate: Date;
 
   @ManyToOne(() => RepositoryUserAccess, () => Repository, 'repository_id', 'repositoryID', false)
-  repository: Repository;
+    repository: Repository;
   repositoryID: number;
 
   @ManyToOne(() => RepositoryUserAccess, () => User, 'user_id', 'userID', false)
-  user: User;
+    user: User;
   userID: number;
 }

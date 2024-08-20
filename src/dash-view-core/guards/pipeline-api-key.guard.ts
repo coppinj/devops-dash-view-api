@@ -11,7 +11,6 @@ export class PipelineApiKeyGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const apiKey = request.headers['api-key'];
-    console.log(apiKey);
 
     if (!apiKey) {
       throw new UnauthorizedException('API key is missing');

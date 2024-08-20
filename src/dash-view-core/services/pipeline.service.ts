@@ -1,5 +1,5 @@
 import { IEntityDTO } from '@dash-view-common';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository as RepositoryTypeORM } from 'typeorm';
 import { FindManyOptions } from 'typeorm/find-options/FindManyOptions';
@@ -37,14 +37,6 @@ export class PipelineService extends AbstractCRUDService<Pipeline,
     super(repo);
   }
 
-  protected _getListQuery(): FindManyOptions<Pipeline> {
-    return {
-      order: {
-        id: 'ASC',
-      },
-    };
-  }
-
   async createFromPipeline(repository: Repository): Promise<PipelineResponseDTO> {
     if (!repository) {
       throw new NotFoundException();
@@ -64,6 +56,10 @@ export class PipelineService extends AbstractCRUDService<Pipeline,
   async completeFromPipeline(repository: Repository, uuid: string): Promise<IEntityDTO> {
     if (!repository) {
       throw new NotFoundException();
+    }
+
+    if (!uuid) {
+      throw new BadRequestException();
     }
 
     const pipeline = await this.findOneByUUIDAndRepositoryID(uuid, repository.id);
@@ -86,6 +82,14 @@ export class PipelineService extends AbstractCRUDService<Pipeline,
         repositoryID,
       },
     });
+  }
+
+  protected _getListQuery(): FindManyOptions<Pipeline> {
+    return {
+      order: {
+        id: 'ASC',
+      },
+    };
   }
 
   protected async _getListDTO(entity: Pipeline): Promise<PipelineListDTO> {
